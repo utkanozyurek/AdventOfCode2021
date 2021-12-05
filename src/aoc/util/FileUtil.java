@@ -12,8 +12,8 @@ public class FileUtil {
         return Files.readAllLines(Paths.get(FileUtil.class.getClassLoader().getResource(filename).toURI()));
     }
 
-    public static List<String> readFileAndSplit(String parameter, String fileName) throws IOException, URISyntaxException {
+    public static List<String> readFileAndSplit(String delimeter, String fileName) throws IOException, URISyntaxException {
         return Arrays.asList(new String(Files.readAllBytes(Paths.get(FileUtil.class.getClassLoader().getResource(fileName).toURI())))
-            .split(parameter));
+            .split(delimeter));
     }
 }
