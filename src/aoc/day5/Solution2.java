@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Solution1 {
+public class Solution2 {
     static int numberOfMoreThan1s = 0;
     public static void main(String[] args) throws IOException, URISyntaxException {
         Map<Integer, Map<Integer, Integer>> coordinateSystem = new HashMap<>();
@@ -22,12 +22,25 @@ public class Solution1 {
                 int x = Math.min(coordinate.get(0), coordinate.get(2));
                 int y = Math.min(coordinate.get(1), coordinate.get(3));
                 for (int i = 0; i <= Math.abs(coordinate.get(0) - coordinate.get(2)); i++) {
+                    int currentX = x+i;
                     for (int j = 0; j <= Math.abs(coordinate.get(1) - coordinate.get(3)); j++) {
-                        coordinateSystem.putIfAbsent(x, new HashMap<>());
-                        increase(coordinateSystem.get(x), y, x);
+                        int currentY = y+j;
+                        coordinateSystem.putIfAbsent(currentX, new HashMap<>());
+                        increase(coordinateSystem.get(currentX), currentY, currentX);
                     }
                 }
+            } else {
+                int x = coordinate.get(0);
+                int y = coordinate.get(1);
+                int xDirection = (int) Math.signum((coordinate.get(0)-coordinate.get(2)))*-1;
+                int yDirection = (int) Math.signum((coordinate.get(1)-coordinate.get(3)))*-1;
+                for (int i = 0; i <= Math.abs(coordinate.get(0) - coordinate.get(2)); i++) {
+                    int currentX = x+(i*xDirection);
+                    int currentY = y+(i*yDirection);
+                    coordinateSystem.putIfAbsent(currentX, new HashMap<>());
+                    increase(coordinateSystem.get(currentX), currentY, currentX);
 
+                }
             }
         });
         System.out.println(numberOfMoreThan1s);
